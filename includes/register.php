@@ -10,47 +10,44 @@ $flag = 0;
 
 $erPhone = $erUser = "";
 try {
-    if(isset($_POST['register'])){
-    if (isset($_REQUEST['customer_name'])) $customer_name =  $_REQUEST['customer_name'];
-    if (isset($_REQUEST['customer_mobile'])) $customer_mobile =  $_REQUEST['customer_mobile'];
-    if(isset($customer_mobile)){
-    if(!preg_match("/^98[0-9]{8}$/", $customer_mobile)){
-        $flag = 1;
-        $erPhone = "Enter a valid phone!";
-    }
+  if(isset($_POST['register'])){
+  if (isset($_REQUEST['customer_name'])) $customer_name =  $_REQUEST['customer_name'];
+  if (isset($_REQUEST['customer_mobile'])) $customer_mobile =  $_REQUEST['customer_mobile'];
+  if(isset($customer_mobile)){
+  if(!preg_match("/^98[0-9]{8}$/", $customer_mobile)){
+      $flag = 1;
+      $erPhone = "Enter a valid phone!";
+  }
 }
-    if (isset($_REQUEST['customer_username'])) $customer_username =  $_REQUEST['customer_username'];
+  if (isset($_REQUEST['customer_username'])) $customer_username =  $_REQUEST['customer_username'];
 
-    $sql = "SELECT * FROM customers WHERE customer_username = '$customer_username'";
-    $query = mysqli_query($conn, $sql);
+  $sql = "SELECT * FROM customers WHERE customer_username = '$customer_username'";
+  $query = mysqli_query($conn, $sql);
 
 
-    if(mysqli_num_rows($query) > 0){
-        $flag = 1;
-        $erUser = "Username already exists!";
-    }
-
+  if(mysqli_num_rows($query) > 0){
+      $flag = 1;
+      $erUser = "Username already exists!";
+  }
 }
-    if (isset($_REQUEST['customer_password'])) $customer_password =  $_REQUEST['customer_password'];
-    if (isset($_REQUEST['customer_name']) && isset($_REQUEST['customer_mobile']) && isset($_REQUEST['customer_username']) &&isset($_REQUEST['customer_password']) && $flag == 0 ) {
-        $sql = "INSERT INTO customers (customer_name, customer_mobile,customer_username, customer_password)
-            VALUES ('$customer_name','$customer_mobile','$customer_username', '$customer_password')";
+  if (isset($_REQUEST['customer_password'])) $customer_password =  $_REQUEST['customer_password'];
+  if (isset($_REQUEST['customer_name']) && isset($_REQUEST['customer_mobile']) && isset($_REQUEST['customer_username']) &&isset($_REQUEST['customer_password']) && $flag == 0 ) {
+      $sql = "INSERT INTO customers (customer_name, customer_mobile,customer_username, customer_password)
+          VALUES ('$customer_name','$customer_mobile','$customer_username', '$customer_password')";
 
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-            header("location: login.php");
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
+      if ($conn->query($sql) === TRUE) {
+          echo "New record created successfully";
+          header("location: login.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
 
-        $conn->close();
-    }
-
-    
-} catch (Throwable $th) {
-    echo 'Transaction error.';
-}
-
+      $conn->close();
+  }
+  
+  } catch (Throwable $th) {
+      echo 'Transaction error.';
+  }
 ?>
 
 <div class="account-page">
