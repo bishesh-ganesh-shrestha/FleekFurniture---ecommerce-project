@@ -20,7 +20,6 @@
       "name": "Test Bahadur",
       "email": "test@khalti.com",
       "phone": "9800000001",
-      "otp": "987654"
   }
   }
 
